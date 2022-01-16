@@ -97,4 +97,13 @@ module.exports = withBundleAnalyzer({
 
     return config
   },
+  async redirects() {
+    return [
+      {
+        source: '/:slug',
+        destination: '/blog/:slug',
+        permanent: true,
+      },
+    ]
+  },
 })
