@@ -104,6 +104,11 @@ module.exports = withBundleAnalyzer({
         destination: '/blog/:slug',
         permanent: true,
       },
+      {
+        source: '/tag/:slug',
+        destination: '/tags/:slug',
+        permanent: true,
+      },
     ]
   },
 })
