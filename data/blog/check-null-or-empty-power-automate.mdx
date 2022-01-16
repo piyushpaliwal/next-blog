@@ -1,0 +1,39 @@
+---
+title: Check JSON object null/empty in Power Automate
+date: '2020-04-13'
+tags: ['Power Automate']
+draft: false
+summary: All the features you need to know when it comes to Unified Interface on Dynamics 365
+images: [static/images/2021/05/power-automate-condition-null-empty.png]
+layout: PostLayout
+authors: ['piyush']
+---
+
+<TOCInline toc={props.toc} asDisclosure toHeading={3} />
+Microsoft Power Automate is a great platform when it comes to designing your workflows or automations
+with its easy to use drag-and-drop workflow builder and the hundreds of connectors that are available
+for Power Users.
+
+More often than not, we come in a situation where there is some data available, in a given format, say JSON, and we would like to check in the data if certain value exists or not and based on that, a logic needs to be written. I was surprised to find out that the **condition** step does not have a property to check for empty or null values.
+
+![Power Automate condition control](/static/images/2021/05/power-automate-condition-null-empty.png)
+
+So, now the obvious question;
+
+## How do we check for null or empty?
+
+Turns out, it is much more simple than I had thought, all you have know are a couple of mehtods which you can use in expressions.
+
+### empty() Method
+
+Empty method, as the name suggests, will return a `true` or `false` if the given data is blank.
+
+```javascript
+empty(<your-object>)
+```
+
+![Condition evaluation Power Automate](/static/images/2021/05/condition-evaluation-power-automate.png)
+
+All you have to do is switch to **Expression** in the **Dynamic content** selection screen and start typing the formula and that's it! Take a look at one example below.
+
+![Empty method usage in Power Automate](/static/images/2021/05/empty-method-usage-power-automate.gif)

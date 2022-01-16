@@ -1,0 +1,46 @@
+---
+title: Upcoming Dynamics 365 releases - exciting features worth waiting
+date: '2021-05-11'
+tags: ['Dynamics 365']
+draft: false
+summary: 4 key features that Microsoft is releasing as part of the 2021 Release waves which are absolutely worth waiting for and getting excited about. Read along for details.
+images: [/static/images/2021/05/upcoming-features-icon.svg]
+layout: PostLayout
+authors: ['piyush']
+---
+
+<TOCInline toc={props.toc} asDisclosure toHeading={3} />
+Ever since Microsoft started publishing the [Dynamics 365 product roadmap](https://dynamics.microsoft.com/en-us/roadmap/overview/),
+there is that part of me who checks eagerly to see is some of the ideas have turned into features or
+not.
+
+With the 2021 wave release, following are some of the key items which made me super excited and I want to try them as soon as the preview lands.
+
+## ILMerge - Thanks for being there, but we don't need you anymore
+
+Microsoft is bringing in the new concept of `Dependent Assemblies` which will allow developers to register third-party libraries along with the plugin assembly.
+
+Arguably the most used third-party assembly is [Newtonsoft's Json.net](https://www.newtonsoft.com/json), we don't need to use ILMerge for using it in our project 😁
+
+[Dependent assemblies for plug-ins - Power Platform Release Plan](https://docs.microsoft.com/en-us/power-platform-release-plan/2021wave1/data-platform/dependent-assemblies-plug-ins)
+
+## Multi-Table Lookup fields
+
+Yes, you heard it right, you will soon be able to create lookup fields which references multiple tables in Dataverse.
+
+[Multi-table lookups - Power Platform Release Plan](https://docs.microsoft.com/en-us/power-platform-release-plan/2021wave1/data-platform/multi-table-lookups)
+
+In-App Notifications on Model-driven apps
+This feature has been requested for so long now, am so happy to see it making its place into the platform.
+
+Anytime we had requirements for a notification, the only simple solution was to send out an email to people, well not anymore. Soon we will be able to add notifications to the [Xrm.Panel](https://docs.microsoft.com/en-us/powerapps/developer/model-driven-apps/clientapi/reference/xrm-panel), (see screenshot below)
+
+![In-App notification (courtesy Microsoft Docs)](/static/images/2021/05/model-app-in-app-notification-center.png)
+
+[Model-driven app adds in-app notifications - Power Platform Release Plan](https://docs.microsoft.com/en-us/power-platform-release-plan/2021wave1/power-apps/model-driven-app-adds-in-app-notifications)
+
+## Application Insights and Plugin Trace
+
+Centralized place to track all of the application logs, including the ones that gets generated from plugins, no longer required to fiddle with `Trace Log` Table
+
+[Plug-in telemetry with Application Insights integration - Power Platform Release Plan](https://docs.microsoft.com/en-us/power-platform-release-plan/2021wave1/data-platform/plug-in-telemetry-application-insights-integration)

@@ -1,0 +1,182 @@
+---
+title: '👻 Ghost: Casper theme customizations'
+date: '2021-06-14'
+tags: ['Ghost Platform']
+draft: false
+summary: Customize ghost platform's Casper theme to add page anchor links, smooth scrolling, lazy loading of comments plugin to improve overall performance.
+images: [/static/images/2021/06/ghost-banner.png]
+layout: PostLayout
+authors: ['piyush']
+---
+
+![Ghost Banner](/static/images/2021/06/ghost-banner.png)
+
+<TOCInline toc={props.toc} asDisclosure toHeading={3} />
+
+Ghost is a great blogging platform. I have been keeping a close eye on it since long before finally making a switch. The biggest issue I have with the platform is the themes, the free ones lack a lot of features that are essential to me and the paid ones are really expensive.
+So I decided to stick to the default Casper theme and build upon it based on my requirements. Just wanted to share all the changes that I have made in the theme for it to work for my likings. Let's take a look at a few of them.
+
+## Page Anchor links on Headings
+
+The idea is that whenever someone hovers over a heading on my blog post, it should show a link icon at the beginning. Just see it in action by hovering over to the heading above 😊.
+
+### Script to insert SVG icon
+
+Add a new JavaScript file under `assets/js/anchor-links.js` and insert the code below
+
+```JavaScript
+(function (window, document) {
+    var addAnchors = () => {
+        var headings = document.querySelectorAll('.gh-content h1, .gh-content h2, .gh-content h3, .gh-content h4, .gh-content h5, .gh-content h6')
+        headings.forEach((heading) => {
+            heading.insertAdjacentHTML('afterbegin', `
+                <a href="#${heading.id}" class="anchor-link">
+                    <svg width="1em" height="1em" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+                </a>
+            `)
+        })
+    }
+
+    document.addEventListener('DOMContentLoaded', addAnchors)
+})(window, document);
+```
+
+A little explanation, we are first getting all of the `headings` under the `.gh-content` class and looping through all the retrieved headers. Then, all we have to do is add an anchor tag by using the `insertAdjacentHTML` function and using `afterbegin` as first parameter. As the text of anchor tag, we are going to use an SVG icon, found here [Heroicons](https://heroicons.dev/?query=link).
+Finally call this `addAnchors` function on the `DOMContentLoaded` event and ensure that our script will only execute when the whole page has loaded.
+
+### Style the icon
+
+Now that our icon is in place, we need to ensure that it shows up on the left of heading with a little negative margin. Add a new `css` file under `assets/css/custom.css`. Lets look at the code
+
+```css
+/* Anchor link styling */
+@media (max-width: 900px) {
+  .anchor-link {
+    display: none;
+  }
+}
+
+@media (min-width: 900px) {
+  .anchor-link {
+    opacity: 0;
+    text-decoration: none;
+    margin-left: -1.25em;
+  }
+
+  h1:hover .anchor-link,
+  h2:hover .anchor-link,
+  h3:hover .anchor-link,
+  h4:hover .anchor-link,
+  h5:hover .anchor-link,
+  h6:hover .anchor-link {
+    opacity: 1;
+    text-decoration: none;
+  }
+}
+```
+
+I have used media queries to ensure that our icon is only visible on the screens larger than `900px`. Negative margin is provided by `margin-left: -1.25em;` and since we only want it to be visible upon hover, we have given the `opacity: 0;`. We'll change the `opacity: 1;` upon hovering over to any header elements.
+
+You should now have a fully functioning page anchor links. Let me know in the comments below in case this does not work for you.
+
+## Smooth Scrolling
+
+If you have used the page anchor links from above implementation, then you might also make an additional change of enabling smooth scrolling to ensure if you click any of the links, the page scrolls nicely 😊.
+
+In the `assets/css/custom.css`, just add this additional styling.
+
+```javascript
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+```
+
+## Comments: Lazy loading
+
+I use [commento](https://commento.io/) for enabling comments on this blog, however people come to my site when they have a problem, and once they figure out the solution, they are gone. None of my posts require a lot of discussions, so to keep up the performance, I only want the comments section to load when someone really needs it.
+
+The best solution is to let someone click and button and that's when we try to load all the commenting scripts. You can see it in action below this blog post.
+
+### Add placeholder to load comments
+
+Modify the `post.hbs` file to remove any `script` tag that you are using to load your comments box. We will dynamically inject this script tag when someone clicks `Load Comments` text.
+
+```html
+<section class="article-comments gh-canvas">
+  <div class="comments-view">
+    <svg
+      width="1.5em"
+      height="1.5em"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+      ></path>
+    </svg>
+    Load Comments
+  </div>
+  <div id="commento"></div>
+</section>
+```
+
+We have replaced the `script` tag with a div with class `comments-view`. When a user clicks this, the actual comments script will load.
+
+### Add Script
+
+Once our HTML is setup, the next thing we need is to enable the click function of the div and load our actual comments plugin.
+
+Create a new file under `assets/js/comments-load.js` with the following code
+
+```javascript
+;(function (document) {
+  var commentsView = document.querySelector('.comments-view')
+  commentsView &&
+    commentsView.addEventListener('click', () => {
+      commentsView.style.display = 'none'
+      commento = document.createElement('script')
+      commento.src = 'https://ipiyush-comments.herokuapp.com/js/commento.js'
+      document.body.appendChild(commento)
+    })
+})(document)
+```
+
+We are retrieving the element with class of `.comments-view` and then adding an event listener to it which hides this div, creates a new script element with an `src` of your plugin URL and finally append it to the `body`.
+
+### Style the load comments div
+
+So far so good, you should now have a working clickable div which loads comments upon click, but it looks very ugly. I have used the following set of styles to spice it up a little. Feel free to use your own styles here.
+
+```css
+/* Comments Lazy-loading */
+.comments-view {
+  font-size: 1.2em;
+  padding: 4em;
+  text-align: center;
+  cursor: pointer;
+  border-top: 1px solid var(--color-lightgrey);
+  border-bottom: 1px solid var(--color-lightgrey);
+}
+
+.comments-view:hover svg {
+  color: var(--ghost-accent-color);
+  transition: 0.3s;
+}
+
+.comments-view:hover {
+  background-color: rgba(246, 246, 246, 0.5);
+  transition: 0.3s;
+}
+
+.commento {
+  display: none;
+}
+```
+
+This are just some highlights of some of the major changes I was able to manage to this already beautiful theme. Let me know in the comments below in case you get stuck somewhere or would like to see any additional customizations.

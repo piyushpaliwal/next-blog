@@ -1,0 +1,31 @@
+---
+title: There was a problem with your single sign-on account - Omnichannel
+date: '2021-05-16'
+tags: ['Troubleshooting', 'Omnichannel']
+draft: false
+summary: Fix Dynamics 365 Omnichannel for Customer Service's error that says There was a problem with your single sign-on account. Please sign out of all Dynamics 365 apps and try again.
+images: [/static/images/size/2021/05/Omnichannel-for-Dynamics-365.png]
+layout: PostLayout
+authors: ['piyush']
+---
+
+Earlier this week I was trying to setup Omnichannel for Customer Service trial on my tenant. Upon successful setup when I tried logging in using one of the agent logins, it went through, however there were some prominent errors.
+
+- There was a problem with your single sign-on account. Please sign out of all Microsoft Dynamics 365 apps and sign in again.
+- Presence loading failed
+
+You can see both the issues in the screenshot below
+
+![Single sign-on & presence loading error](/static/images/2021/05/XIo1zZpwVa.png)
+
+It took me a while to figure it out as to what's going on. Wanted to share it with everyone with similar situation.
+
+## Resolution
+
+While setting up the trial, we almost never focus on the part which says **Help us protect your account**, instead just skip it.
+
+![MFA setup screen](/static/images/2021/05/6gn6rke4Aq.png)
+
+In this case, turns out skipping this prompt is the reason why both the errors are shown up.
+
+A simple fix to just go ahead and setup MFA even for the trial account will ensure the sign-in is successful and allow the presence to be loaded.

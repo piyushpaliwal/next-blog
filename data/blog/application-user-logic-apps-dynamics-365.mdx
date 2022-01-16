@@ -1,0 +1,50 @@
+---
+title: Logic Apps, Power Automate with Application User
+date: '2020-03-27'
+tags: ['Logic Apps', 'Power Automate', 'Application User']
+draft: false
+summary: Integrate Dynamics 365 with Logic Apps or Power Automate with Application User
+images: []
+layout: PostLayout
+authors: ['piyush']
+---
+
+Azure Logic Apps needs no introduction, Microsoft has provided a beast of <cite>iPaas[^1]</cite> offering which you cannot ignore. I just love how effortless it is to connect to various platforms / applications using simple connectors and define your integration workflow. Integrating Dynamics 365 with Logic Apps is a breeze because of the presence of first-party connector.
+
+I got myself into an edge scenario where an integration was supposed to be built between SharePoint and Dynamics 365 (yes, we couldn't utilize the <cite>OOB[^2]</cite> integration because of varying requirements). The problem was unavailability of **Non-Interactive** user as they were all consumed with multiple other integrations.
+
+The only feasible option was to create a new **Application User** and go ahead with the integration. Now, am not going to get into specifics as how how an app user is created, you can go [here](https://docs.microsoft.com/en-us/powerapps/developer/common-data-service/use-single-tenant-server-server-authentication#application-user-creation) or [here](https://docs.microsoft.com/en-in/azure/active-directory/develop/quickstart-register-app).
+
+The problem with App user is that there are no `username` and `password` instead you get a `Client ID and Client Secret` making it impossible to utilize the out of the box connectors which are available in Logic Apps and Power Automate.
+
+### So what should we do?
+
+The solution is very simple, we just have to utilize the HTTP Request action with the below settings and you would be able to call the Dynamics 365 WebAPI and retrieve information.
+
+![HTTP Request - Microsoft Azure Logic Apps](/static/images/2021/05/HTTP_Request_LogicApps.png)
+
+- **Method**: GET
+- **URI**: _Your Dynamics 365 WebAPI query_. For eg:
+
+  ```html
+  https://<org>.crm.dynamics.com/api/data/v9.1/accounts?$select=name</org>
+  ```
+
+- **Authentication**: Select `Active Directory OAuth`
+
+  - **Authority**: You can keep it blank and the system will default to https://login.windows.net/
+  - **Tenant**: _Your tenant ID_, don't know the tenant ID? head [here](https://docs.microsoft.com/en-us/onedrive/find-your-office-365-tenant-id) or [here](https://crmtipoftheday.com/1271/where-is-my-tenant-id/)
+  - **Audience**: Dynamics 356 organization URL, eg:
+
+    ```html
+    https://\<org\>.crm.dynamics.com</org\>
+    ```
+
+  - **Client ID**: The `Client ID` of App that is registered on Azure
+  - **Credential Type**: Choose _Secret_.
+  - **Secret**: The `Client Secret` obtained while registering App on Azure
+
+That's really it! You should now receive the CRM data in a nice little JSON format.
+
+[^1]: Integration Platform as a Service
+[^2]: Out of the Box

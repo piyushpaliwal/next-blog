@@ -1,0 +1,44 @@
+---
+title: '🕵️‍♀️ Check access for a record in Model-driven apps - Did you know?'
+date: '2021-05-09'
+tags: ['Dynamics 365']
+draft: false
+summary: Microsoft has finally released a neat tool for Administrators to be able to check access to a record for any user right within the model-driven app interface
+images: [static/images/2021/05/check-access.png]
+layout: PostLayout
+authors: ['piyush']
+---
+
+<TOCInline toc={props.toc} asDisclosure toHeading={3} />
+As part of the ongoing platform improvements, recently there was a very useful tool which was released
+**Access Checker**.
+
+As system implementers, am sure we all have come across scenarios where we implemented a security model, however testing that model is challenging because you need access to a few user accounts where you'll change roles and test if the model works or not.
+
+Yes, there are a community tools available, like this XRM Toolbox plugin. This works really well but its still a third party solution for something that should really be available out of the box with the platform.
+
+Well, Microsoft has listened and they silently released a new tool right within the Model-driven apps interface.
+
+## How do you get it?
+
+All you need to do is navigate to the dynamics 365 record for which access needs to be checked for a particular user and you should see a new ribbon button called `Check Access`
+
+![Check Access](/static/images/2021/05/image.png)
+
+By default, it shows your access information, but if you are an `System Administrator` then it will allow you to select another user in the system.
+
+The best part is that access is checked against all of the possible scenarios
+
+- Role based access
+- Shared access
+- Hierarchy access
+
+![Access checker - details](/static/images/2021/05/image-1.png)
+
+This is a gamechanger and the implementer community will appreciate what Microsoft has delivered.
+
+## Limitations?
+
+As of now, with my limited research, I was not able to do the following
+
+- Command Bar button visibility based on permissions. This still requires you to login with another user and validate, unless there is a way which I am completely missing out on 😊.

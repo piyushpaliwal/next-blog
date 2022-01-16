@@ -1,0 +1,36 @@
+---
+title: Missing settings in Dynamics 365 Unified Interface?
+date: '2019-04-08'
+tags: ['Unified Interface', 'Dynamics 365']
+draft: false
+summary: Enabled Unified Interface on your Dynamics 365 instance? Are you scratching
+  your head to get into System Administration and Customization screen?
+images: []
+layout: PostLayout
+authors: ['piyush']
+---
+
+As the title suggests, you either love what Microsoft is doing with its new Unified Interface for Dynamics 365 or you absolutely hate it, but you cannot ignore it, not if you have recently subscribed for a trial instance of Dynamics 365.
+
+It came in as a surprise to me when I recently created a trial instance. Previously, if you wanted to go to the classic interface of Dynamcics 365, you would simple choose the _Dynamics 365 - custom_ app, but things have changed. I tried logging in to classic interface but couldn't get on to it and noticed a new flag in the URL
+`https://xxx.crm.dynamics.com/main.aspx?app=xxxdefault&forceUCI=1`
+
+Notice the two flags
+
+- `app = xxxdefault` This tells which app should be opened, usually you would see a GUID listed here
+- `forceUCI = 1` This is the flag which force you to the Unified Interface
+
+If you ask me, I love the new interface and the efforts that have gone into building it. Looks much cleaner and good usage of real estate. However, it was bit of a struggle for me when I realized that there was no `Settings` tab avialable in the Unified Interface.
+
+### How do I reach the Settings Tab in Unified Interface
+
+This is currently hidden in the little wrench icon on the top right corner of the app with the title **Advanced Settings**
+
+![Advanced Settings of Unified Interface](/static/images/2021/05/advanced-settings-unified-interface.png)
+
+This will take you to the settings screen where you can proceed with customizing Dynamics 365. The sitemap is restricted to only show you `settings` here. The URL is similar to the one below
+`https://xxx.crm.dynamics.com/main.aspx?settingsonly=true`
+
+![Settings screen of Unified Interface](/static/images/2021/05/settings-screen-unified-interface.png)
+
+Let me know your thoughts if this is a welcome change for you!
