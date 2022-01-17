@@ -100,13 +100,73 @@ module.exports = withBundleAnalyzer({
   async redirects() {
     return [
       {
-        source: '/:slug',
-        destination: '/blog/:slug',
+        source: '/tag/:slug',
+        destination: '/tags/:slug',
         permanent: true,
       },
       {
-        source: '/tag/:slug',
-        destination: '/tags/:slug',
+        source: '/application-user-logic-apps-dynamics-365',
+        destination: '/blog/application-user-logic-apps-dynamics-365',
+        permanent: true,
+      },
+      {
+        source: '/check-access-for-record-model-driven-apps',
+        destination: '/blog/check-access-for-record-model-driven-apps',
+        permanent: true,
+      },
+      {
+        source: '/check-null-or-empty-power-automate',
+        destination: '/blog/check-null-or-empty-power-automate',
+        permanent: true,
+      },
+      {
+        source: '/dynamics-365-power-platform-icons-finally-available',
+        destination: '/blog/dynamics-365-power-platform-icons-finally-available',
+        permanent: true,
+      },
+      {
+        source: '/execute-power-automate-inside-powerapps',
+        destination: '/blog/execute-power-automate-inside-powerapps',
+        permanent: true,
+      },
+      {
+        source: '/ghost-casper-theme-customizations',
+        destination: '/blog/ghost-casper-theme-customizations',
+        permanent: true,
+      },
+      {
+        source: '/inject-dependency-in-javascript-web-resource',
+        destination: '/blog/inject-dependency-in-javascript-web-resource',
+        permanent: true,
+      },
+      {
+        source: '/lets-explore-unified-interface-for-dynamics-365-or-crm',
+        destination: '/blog/lets-explore-unified-interface-for-dynamics-365-or-crm',
+        permanent: true,
+      },
+      {
+        source: '/manage-multiple-office-365-domain-logins-like-a-pro',
+        destination: '/blog/manage-multiple-office-365-domain-logins-like-a-pro',
+        permanent: true,
+      },
+      {
+        source: '/missing-settings-dynamics-365-unified-interface',
+        destination: '/blog/missing-settings-dynamics-365-unified-interface',
+        permanent: true,
+      },
+      {
+        source: '/multi-select-option-set-for-dynamics-365',
+        destination: '/blog/multi-select-option-set-for-dynamics-365',
+        permanent: true,
+      },
+      {
+        source: '/there-was-a-problem-with-your-single-sign-on-account-omnichannel',
+        destination: '/blog/there-was-a-problem-with-your-single-sign-on-account-omnichannel',
+        permanent: true,
+      },
+      {
+        source: '/upcoming-dynamics-365-releases-exciting-features-worth-waiting',
+        destination: '/blog/upcoming-dynamics-365-releases-exciting-features-worth-waiting',
         permanent: true,
       },
     ]
